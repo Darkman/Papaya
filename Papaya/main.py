@@ -33,17 +33,24 @@ def setup_logging():
     )
 
 
+class Timer(QtCore.QElapsedTimer):
+    def __init__(self):
+        super().__init__()
+        self.restart()
+
+    def secs_elapsed(self):
+        return int(self.elapsed()/1000)
+
+
 class Game:
     def __init__(self, pi):
         log.info('Game Start')
         self.pi = pi
 
-        self.status_message = 'Waiting for first team control.'
         self.controlling_team = None
 
-        self.team_change_in = QtCore.QElapsedTimer()
-
-        self.game_end_in = QtCore.QElapsedTimer()
+        self.team_change_in = Timer()
+        self.game_end_in = Timer()
 
         self.red_held = False
         self.blue_held = False
@@ -52,45 +59,31 @@ class Game:
         self.red_score = 0
         self.blue_score = 0
 
-        self.red_temp_score = 0
-        self.blue_temp_score = 0
+        self.red_display = 0
+        self.blue_display = 0
 
-        self.red_current_elapsed = QtCore.QElapsedTimer()
-        self.blue_current_elapsed = QtCore.QElapsedTimer()
-        # self.red_current_elapsed.restart()
-        # self.blue_current_elapsed.restart()
+        self.red_current = Timer()
+        self.red_current.invalidate()
+        self.blue_current = Timer()
+        self.blue_current.invalidate()
 
     def tick(self):
         self.button_check()
         self.update_score()
-
-        if self.both_held:
-            self.status_message = str(int(10 - (self.game_end_in.elapsed()/1000)))
-        elif self.red_held or self.blue_held:
-            self.status_message = str(int(10 - (self.team_change_in.elapsed()/1000)))
-
-        return [self.red_temp_score, self.blue_temp_score, self.status_message]
+        return [self.red_display, self.blue_display]
 
     def change_team(self, team):
         log.info('Change team to {}'.format(team))
         if team == 'red':
-            if self.blue_current_elapsed.isValid() and self.get_seconds(self.blue_current_elapsed) > 0:
-                self.blue_score += int(self.blue_current_elapsed.elapsed()/1000)
+            if self.blue_current.isValid() and self.blue_current.secs_elapsed() > 0:
+                self.blue_score += self.blue_current.secs_elapsed()
             self.controlling_team = team
-            self.red_current_elapsed.restart()
-            self.status_message = 'Red team has control.'
+            self.red_current.restart()
         elif team == 'blue':
-            if self.red_current_elapsed.isValid() and self.get_seconds(self.red_current_elapsed) > 0:
-                self.red_score += int(self.red_current_elapsed.elapsed()/1000)
+            if self.red_current.isValid() and self.red_current.secs_elapsed() > 0:
+                self.red_score += self.red_current.secs_elapsed()
             self.controlling_team = team
-            self.blue_current_elapsed.restart()
-            self.status_message = 'Blue team has control.'
-
-    @staticmethod
-    def get_seconds(number):
-        if not isinstance(number, QtCore.QElapsedTimer):
-            raise TypeError('Must be a type of QElapsedTimer')
-        return int(number.elapsed()/1000)
+            self.blue_current.restart()
 
     def end(self):
         log.info('Game End')
@@ -99,13 +92,13 @@ class Game:
 
     def update_score(self):
         if self.controlling_team == 'red':
-            self.red_temp_score = self.red_score + self.get_seconds(self.red_current_elapsed)
-            self.blue_temp_score = self.blue_score
+            self.red_display = self.red_score + self.red_current.secs_elapsed()
+            self.blue_display = self.blue_score
         elif self.controlling_team == 'blue':
-            self.blue_temp_score = self.blue_score + self.get_seconds(self.blue_current_elapsed)
-            self.red_temp_score = self.red_score
+            self.blue_display = self.blue_score + self.blue_current.secs_elapsed()
+            self.red_display = self.red_score
         else:
-            self.red_temp_score, self.blue_temp_score = self.red_score, self.blue_score
+            self.red_display, self.blue_display = self.red_score, self.blue_score
 
     def button_check(self):
         if self.pi.red_pressed() and self.pi.blue_pressed():
@@ -121,7 +114,7 @@ class Game:
 
     def both_buttons_pressed(self):
         if self.both_held:
-            timer_value = self.game_end_in.elapsed()/1000
+            timer_value = self.game_end_in.secs_elapsed()
             if timer_value > 4:
                 self.end()
         else:
@@ -130,10 +123,10 @@ class Game:
 
     def red_pressed(self):
         if self.controlling_team == 'red':
-            self.status_message = 'Red team already has control.'
+            log.info('Red team already has control.')
         else:
             if self.red_held:
-                timer_value = self.team_change_in.elapsed()/1000
+                timer_value = self.team_change_in.secs_elapsed()
                 if timer_value >= 4:
                     self.change_team('red')
             else:
@@ -142,10 +135,10 @@ class Game:
 
     def blue_pressed(self):
         if self.controlling_team == 'blue':
-            self.status_message = 'Blue team already has control.'
+            log.info('Blue team already has control.')
         else:
             if self.blue_held:
-                timer_value = self.team_change_in.elapsed()/1000
+                timer_value = self.team_change_in.secs_elapsed()
                 if timer_value >= 4:
                     self.change_team('blue')
             else:
@@ -179,11 +172,11 @@ class GUI(QtWidgets.QMainWindow, Ui_MainWindow):
         info = self.game.tick()
         self.display(*info)
 
-    def display(self, red_score, blue_score, status_message):
+    def display(self, red_score, blue_score):
         self.red_team_score_lcd.display(red_score)
         self.blue_team_score_lcd.display(blue_score)
 
-        self.status_label.setText(status_message)
+        self.status_label.setText('')
 
 
 def main():
