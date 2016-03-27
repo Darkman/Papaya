@@ -21,7 +21,7 @@ import logging as log
 # import RPi.GPIO as GPIO
 from PyQt5 import QtWidgets, QtCore
 
-from .gui import Ui_MainWindow
+from gui import Ui_MainWindow
 
 
 def setup_logging():
@@ -243,3 +243,7 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     gui = GUI()
     sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    main()
