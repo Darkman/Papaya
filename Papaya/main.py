@@ -21,7 +21,7 @@ import logging as log
 # import RPi.GPIO as GPIO
 from PyQt5 import QtWidgets, QtCore
 
-from gui import Ui_MainWindow
+from .gui import Ui_MainWindow
 
 
 def setup_logging():
