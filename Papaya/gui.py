@@ -11,10 +11,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        #MainWindow.showFullScreen()
         MainWindow.resize(800, 480)
         MainWindow.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./resources/doomsdaylogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("./Papaya/resources/doomsdaylogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -48,7 +49,7 @@ class Ui_MainWindow(object):
         self.redlabel.setObjectName("redlabel")
         self.logo = QtWidgets.QFrame(self.centralwidget)
         self.logo.setGeometry(QtCore.QRect(0, 0, 800, 480))
-        self.logo.setStyleSheet("background-image: url(./resources/doomsdaylogo.png);\n"
+        self.logo.setStyleSheet("background-image: url(./Papaya/resources/doomsdaylogo.png);\n"
 "background-repeat: no-repeat;\n"
 "background-position: center;")
         self.logo.setLineWidth(0)
