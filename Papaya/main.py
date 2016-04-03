@@ -20,7 +20,7 @@ import logging as log
 
 from PyQt5 import QtWidgets, QtCore
 
-from .raspberry_pi import MockPi
+from .raspberry_pi import Pi
 from .gui import Ui_MainWindow
 
 
@@ -156,7 +156,7 @@ class Game:
 class GUI(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.pi = MockPi(self)
+        self.pi = Pi(self)
         self.game = Game(self.pi)
 
         self.tick_rate = QtCore.QTimer(self)
