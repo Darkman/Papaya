@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        #MainWindow.showFullScreen()
+        MainWindow.showFullScreen()
         MainWindow.resize(800, 480)
         MainWindow.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         icon = QtGui.QIcon()
@@ -97,12 +97,12 @@ class Ui_MainWindow(object):
         self.status_label.setAlignment(QtCore.Qt.AlignCenter)
         self.status_label.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.status_label.setObjectName("status_label")
-        self.red_checkbox = QtWidgets.QCheckBox(self.centralwidget)
-        self.red_checkbox.setGeometry(QtCore.QRect(70, 90, 71, 18))
-        self.red_checkbox.setObjectName("red_checkbox")
-        self.blue_checkbox = QtWidgets.QCheckBox(self.centralwidget)
-        self.blue_checkbox.setGeometry(QtCore.QRect(620, 90, 71, 18))
-        self.blue_checkbox.setObjectName("blue_checkbox")
+        # self.red_checkbox = QtWidgets.QCheckBox(self.centralwidget)
+        # self.red_checkbox.setGeometry(QtCore.QRect(70, 90, 71, 18))
+        # self.red_checkbox.setObjectName("red_checkbox")
+        # self.blue_checkbox = QtWidgets.QCheckBox(self.centralwidget)
+        # self.blue_checkbox.setGeometry(QtCore.QRect(620, 90, 71, 18))
+        # self.blue_checkbox.setObjectName("blue_checkbox")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -113,8 +113,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "PapayaProject"))
         self.bluelabel.setText(_translate("MainWindow", "SOVEREIGN STATES"))
         self.redlabel.setText(_translate("MainWindow", "FEDERAL COALITION"))
-        self.red_checkbox.setText(_translate("MainWindow", "CheckBox"))
-        self.blue_checkbox.setText(_translate("MainWindow", "CheckBox"))
+        # self.red_checkbox.setText(_translate("MainWindow", "CheckBox"))
+        # self.blue_checkbox.setText(_translate("MainWindow", "CheckBox"))
 
 
 if __name__ == "__main__":
