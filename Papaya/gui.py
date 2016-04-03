@@ -127,8 +127,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "PapayaProject"))
         self.bluelabel.setText(_translate("MainWindow", "SOVEREIGN STATES"))
         self.redlabel.setText(_translate("MainWindow", "FEDERAL COALITION"))
-        self.red_checkbox.setText(_translate("MainWindow", "CheckBox"))
-        self.blue_checkbox.setText(_translate("MainWindow", "CheckBox"))
+        # self.red_checkbox.setText(_translate("MainWindow", "CheckBox"))
+        # self.blue_checkbox.setText(_translate("MainWindow", "CheckBox"))
         self.label.setText(_translate("MainWindow", "TAN"))
         self.label_2.setText(_translate("MainWindow", "GREEN"))
 
