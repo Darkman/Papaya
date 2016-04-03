@@ -176,7 +176,6 @@ class GUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.red_team_score_lcd.display(red_score)
         self.blue_team_score_lcd.display(blue_score)
 
-        self.status_label.setText('')
 
 
 def main():

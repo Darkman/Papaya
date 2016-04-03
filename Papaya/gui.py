@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\Users\Chris\Documents\uishit\mainwindowv2.ui'
+# Form implementation generated from reading ui file 'gui.ui'
 #
 # Created by: PyQt5 UI code generator 5.5.1
 #
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         self.bluelabel.setGeometry(QtCore.QRect(400, 0, 400, 480))
         font = QtGui.QFont()
         font.setFamily("CutOutsFLF")
-        font.setPointSize(48)
+        font.setPointSize(26)
         font.setKerning(False)
         self.bluelabel.setFont(font)
         self.bluelabel.setStyleSheet("background-color: blue;\n"
@@ -37,7 +37,7 @@ class Ui_MainWindow(object):
         self.redlabel.setGeometry(QtCore.QRect(0, 0, 400, 480))
         font = QtGui.QFont()
         font.setFamily("CutOutsFLF")
-        font.setPointSize(48)
+        font.setPointSize(26)
         font.setBold(False)
         font.setWeight(50)
         font.setKerning(False)
@@ -111,8 +111,18 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "PapayaProject"))
-        self.bluelabel.setText(_translate("MainWindow", "BLUE TEAM"))
-        self.redlabel.setText(_translate("MainWindow", "RED TEAM"))
+        self.bluelabel.setText(_translate("MainWindow", "SOVEREIGN STATES"))
+        self.redlabel.setText(_translate("MainWindow", "FEDERAL COALITION"))
         self.red_checkbox.setText(_translate("MainWindow", "CheckBox"))
         self.blue_checkbox.setText(_translate("MainWindow", "CheckBox"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
 
