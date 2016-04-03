@@ -19,7 +19,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>./Papaya/resources/doomsdaylogo.png</normaloff>./Papaya/resources/doomsdaylogo.png</iconset>
+    <normaloff>Papaya/resources/doomsdaylogo.png</normaloff>Papaya/resources/doomsdaylogo.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -241,7 +241,46 @@ text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;</string>
      <string>CheckBox</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>40</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>CutOutsFLF</family>
+      <pointsize>30</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TAN</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>40</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>CutOutsFLF</family>
+      <pointsize>30</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>GREEN</string>
+    </property>
+   </widget>
   </widget>
  </widget>
+ <resources/>
  <connections/>
 </ui>

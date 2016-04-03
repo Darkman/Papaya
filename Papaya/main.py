@@ -39,7 +39,7 @@ class Timer(QtCore.QElapsedTimer):
         self.restart()
 
     def secs_elapsed(self):
-        return int(self.elapsed()/1000)
+        return int(self.elapsed() / 1000)
 
 
 class Game:
@@ -156,7 +156,7 @@ class Game:
 class GUI(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.pi = Pi(self)
+        self.pi = Pi()
         self.game = Game(self.pi)
 
         self.tick_rate = QtCore.QTimer(self)
@@ -175,7 +175,6 @@ class GUI(QtWidgets.QMainWindow, Ui_MainWindow):
     def display(self, red_score, blue_score):
         self.red_team_score_lcd.display(red_score)
         self.blue_team_score_lcd.display(blue_score)
-
 
 
 def main():
