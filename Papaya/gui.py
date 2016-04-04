@@ -82,7 +82,7 @@ class Ui_MainWindow(object):
         self.status_label.setGeometry(QtCore.QRect(0, 410, 800, 70))
         font = QtGui.QFont()
         font.setFamily("Army")
-        font.setPointSize(36)
+        font.setPointSize(31)
         font.setBold(True)
         font.setUnderline(False)
         font.setWeight(75)

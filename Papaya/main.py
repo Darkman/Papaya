@@ -1,16 +1,17 @@
 """
-__/\\\\\\\\\\\\________________________________________________________________________________________________
- _\/\\\////////\\\________________________________/\\\__________________________________________________________
-  _\/\\\______\//\\\______________________________\/\\\__________________________________________________________
-   _\/\\\_______\/\\\__/\\\\\\\\\_____/\\/\\\\\\\__\/\\\\\\\\_______/\\\\\__/\\\\\____/\\\\\\\\\_____/\\/\\\\\\___
-    _\/\\\_______\/\\\_\////////\\\___\/\\\/////\\\_\/\\\////\\\___/\\\///\\\\\///\\\_\////////\\\___\/\\\////\\\__
-     _\/\\\_______\/\\\___/\\\\\\\\\\__\/\\\___\///__\/\\\\\\\\/___\/\\\_\//\\\__\/\\\___/\\\\\\\\\\__\/\\\__\//\\\_
-      _\/\\\_______/\\\___/\\\/////\\\__\/\\\_________\/\\\///\\\___\/\\\__\/\\\__\/\\\__/\\\/////\\\__\/\\\___\/\\\_
-       _\/\\\\\\\\\\\\/___\//\\\\\\\\/\\_\/\\\_________\/\\\_\///\\\_\/\\\__\/\\\__\/\\\_\//\\\\\\\\/\\_\/\\\___\/\\\_
-        _\////////////______\////////\//__\///__________\///____\///__\///___\///___\///___\////////\//__\///____\///__
 
+8 888888888o       ,o888888o.  `8.`8888.      ,8' 8 8888888888   8 888888888o.    8 8888 8 8888888888   b.             8 8 888888888o.
+8 8888    `88.  . 8888     `88. `8.`8888.    ,8'  8 8888         8 8888    `88.   8 8888 8 8888         888o.          8 8 8888    `^888.
+8 8888     `88 ,8 8888       `8b `8.`8888.  ,8'   8 8888         8 8888     `88   8 8888 8 8888         Y88888o.       8 8 8888        `88.
+8 8888     ,88 88 8888        `8b `8.`8888.,8'    8 8888         8 8888     ,88   8 8888 8 8888         .`Y888888o.    8 8 8888         `88
+8 8888.   ,88' 88 8888         88  `8.`88888'     8 888888888888 8 8888.   ,88'   8 8888 8 888888888888 8o. `Y888888o. 8 8 8888          88
+8 8888888888   88 8888         88  .88.`8888.     8 8888         8 888888888P'    8 8888 8 8888         8`Y8o. `Y88888o8 8 8888          88
+8 8888    `88. 88 8888        ,8P .8'`8.`8888.    8 8888         8 8888`8b        8 8888 8 8888         8   `Y8o. `Y8888 8 8888         ,88
+8 8888      88 `8 8888       ,8P .8'  `8.`8888.   8 8888         8 8888 `8b.      8 8888 8 8888         8      `Y8o. `Y8 8 8888        ,88'
+8 8888    ,88'  ` 8888     ,88' .8'    `8.`8888.  8 8888         8 8888   `8b.    8 8888 8 8888         8         `Y8o.` 8 8888    ,o88P'
+8 888888888P       `8888888P'  .8'      `8.`8888. 8 8888         8 8888     `88.  8 8888 8 888888888888 8            `Yo 8 888888888P'
 
-Who's Boxfriend?
+Who's Darkman?
 """
 
 # Todo check timers of isValid()
@@ -47,6 +48,7 @@ class Game:
         log.info('Game Start')
         self.pi = pi
 
+        self.status_message = 'NO TEAM HAS CONTROL'
         self.controlling_team = None
 
         self.team_change_in = Timer()
@@ -70,7 +72,7 @@ class Game:
     def tick(self):
         self.button_check()
         self.update_score()
-        return [self.red_display, self.blue_display]
+        return [self.red_display, self.blue_display, self.status_message]
 
     def change_team(self, team):
         log.info('Change team to {}'.format(team))
@@ -78,11 +80,13 @@ class Game:
             if self.blue_current.isValid() and self.blue_current.secs_elapsed() > 0:
                 self.blue_score += self.blue_current.secs_elapsed()
             self.controlling_team = team
+            self.status_message = 'FEDERAL COALITION HAS CONTROL'
             self.red_current.restart()
         elif team == 'blue':
             if self.red_current.isValid() and self.red_current.secs_elapsed() > 0:
                 self.red_score += self.red_current.secs_elapsed()
             self.controlling_team = team
+            self.status_message = 'SOVEREIGN STATES HAS CONTROL'
             self.blue_current.restart()
 
     def end(self):
@@ -172,10 +176,11 @@ class GUI(QtWidgets.QMainWindow, Ui_MainWindow):
         info = self.game.tick()
         self.display(*info)
 
-    def display(self, red_score, blue_score):
+    def display(self, red_score, blue_score, status_message):
         self.red_team_score_lcd.display(red_score)
         self.blue_team_score_lcd.display(blue_score)
 
+        self.status_label.setText(status_message)
 
 def main():
     setup_logging()
