@@ -88,6 +88,7 @@ class Game:
             self.controlling_team = team
             self.status_message = 'SOVEREIGN STATES HAS CONTROL'
             self.blue_current.restart()
+        self.pi.led_change(self, team)
 
     def end(self):
         log.info('Game End')

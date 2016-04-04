@@ -35,6 +35,13 @@ class Pi:
             return True
         return False
 
+    def led_change(self, team):
+        if team == 'red':
+            GPIO.output(self.red_led, GPIO.LOW)
+            GPIO.output(self.blue_led, GPIO.HIGH)
+        elif team == 'blue':
+            GPIO.output(self.blue_led, GPIO.LOW)
+            GPIO.output(self.red_led, GPIO.HIGH)
 
 # class MockPi:
 #     def __init__(self, gui):
