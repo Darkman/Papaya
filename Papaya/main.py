@@ -52,7 +52,7 @@ class Game:
         self.controlling_team = None
 
         self.team_change_in = Timer()
-        self.game_end_in = Timer()
+        # self.game_end_in = Timer()
 
         self.red_held = False
         self.blue_held = False
@@ -88,7 +88,7 @@ class Game:
             self.controlling_team = team
             self.status_message = 'SOVEREIGN STATES HAS CONTROL'
             self.blue_current.restart()
-        self.pi.led_change(self, team)
+        self.pi.led_change(team)
 
     def end(self):
         log.info('Game End')
@@ -107,7 +107,8 @@ class Game:
 
     def button_check(self):
         if self.pi.red_pressed() and self.pi.blue_pressed():
-            self.both_buttons_pressed()
+            # self.both_buttons_pressed()
+            self.none_pressed()
         elif self.pi.red_pressed():
             self.red_pressed()
         elif self.pi.blue_pressed():
@@ -117,14 +118,14 @@ class Game:
 
     # ---- Button Pressed States ---- #
 
-    def both_buttons_pressed(self):
-        if self.both_held:
-            timer_value = self.game_end_in.secs_elapsed()
-            if timer_value > 4:
-                self.end()
-        else:
-            self.both_held = True
-            self.game_end_in.start()
+    # def both_buttons_pressed(self):
+    #     if self.both_held:
+    #         timer_value = self.game_end_in.secs_elapsed()
+    #         if timer_value > 4:
+    #             self.end()
+    #     else:
+    #         self.both_held = True
+    #         self.game_end_in.start()
 
     def red_pressed(self):
         if self.controlling_team == 'red':
@@ -154,7 +155,7 @@ class Game:
         self.red_held = False
         self.blue_held = False
         self.both_held = False
-        self.game_end_in.invalidate()
+        # self.game_end_in.invalidate()
         self.team_change_in.invalidate()
 
 
@@ -182,6 +183,10 @@ class GUI(QtWidgets.QMainWindow, Ui_MainWindow):
         self.blue_team_score_lcd.display(blue_score)
 
         self.status_label.setText(status_message)
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_End:
+            self.Game.end()
 
 def main():
     setup_logging()
