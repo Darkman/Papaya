@@ -13,6 +13,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.showFullScreen()
         MainWindow.resize(800, 480)
+        MainWindow.setCursor(QtGui.QCursor(QtCore.Qt.BlankCursor))
         MainWindow.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("Papaya/resources/doomsdaylogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

@@ -186,7 +186,7 @@ class GUI(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_End:
-            self.Game.end()
+            self.game.end()
 
 def main():
     setup_logging()
